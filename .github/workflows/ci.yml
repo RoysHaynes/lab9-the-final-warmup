@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -7,54 +7,67 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  quality:
     runs-on: ubuntu-latest
-
+    name: Lint, Format, Test & Docs
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        cache: 'npm'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Run linter
-      run: npm run lint
+      - name: Run linter (ESLint + JSDoc)
+        run: npm run lint
 
-    - name: Run tests
-      run: npm test
+      - name: Format check (Prettier)
+        run: npm run format:check
 
-    - name: Build project
-      run: npm run build
+      - name: Run unit tests
+        run: npm test
 
-  build-check:
+      - name: Run E2E tests
+        run: npx playwright test
+
+      - name: Generate JSDoc
+        run: npm run docs
+
+      - name: Upload docs artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/jsdocs
+
+  build:
     runs-on: ubuntu-latest
-    needs: test
-
+    needs: quality
+    name: Build & Verify
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Build for production
-      run: npm run build
+      - name: Build for production
+        run: npm run build
 
-    - name: Check build artifacts
-      run: |
-        if [ ! -d "dist" ]; then
-          echo "Build failed - dist directory not found"
-          exit 1
-        fi
-        echo "Build successful - artifacts created"
+      - name: Verify build artifacts
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "Build failed - dist directory not found"
+            exit 1
+          fi
+          echo "Build successful - dist directory created"
+          ls -R dist  # Optional: list contents for debug
