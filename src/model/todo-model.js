@@ -1,87 +1,67 @@
 /**
- * TodoModel – Core business logic for the task management application.
+ * @class TodoModel
+ * @description
+ * Manages the todo list data and encapsulates the business logic of the application.
+ * Provides methods for adding, updating, deleting, and toggling todos.
  *
- * This class implements the **Observer pattern** to enable reactive UI updates.
- * All state mutations are persisted to `localStorage` via the injected
- * {@link StorageService}. The model maintains:
- * - An in-memory array of todo items
- * - An auto-incrementing ID counter
- * - A list of subscriber callbacks
- * @example
- * const storage = new StorageService();
- * const model = new TodoModel(storage);
- *
- * // Register UI components for updates
- * model.subscribe(() => renderTodos(model.todos));
- *
- * // Create a new task with priority
- * model.addTodo('Complete Lab 9', 'high');
+ * Implements the **Observer pattern** — other components (like the view)
+ * can subscribe to changes and reactively update when the model changes.
  */
 export class TodoModel {
   /**
-   * Initializes the model and loads persisted state.
-   * @param {StorageService} storageService - Persistence abstraction.
+   * Creates a new TodoModel instance.
+   * @param {import('./storage-service.js').StorageService} storageService - An instance of the StorageService used for persistence.
    */
   constructor(storageService) {
-    /**
-     * Reference to the storage service.
-     * @private
-     */
+    /** @type {import('./storage-service.js').StorageService} */
     this.storage = storageService;
 
-    /**
-     * Current list of todo items.
-     * @type {Array<TodoItem>}
-     * @private
-     */
+    /** @type {Array<{id: number, text: string, completed: boolean, createdAt: string}>} */
     this.todos = this.storage.load('items', []);
 
-    /**
-     * List of functions to call on state change.
-     * @type {Array<function(): void>}
-     * @private
-     */
+    /** @type {Array<Function>} */
     this.listeners = [];
 
-    /**
-     * Next available ID for new todos.
-     * @type {number}
-     * @private
-     */
+    /** @type {number} */
     this.nextId = this.storage.load('nextId', 1);
   }
 
   /**
-   * Registers a callback to be invoked after any state mutation.
-   * @param {function(): void} listener - Function to call on update.
+   * Subscribes a callback function to be notified whenever the model changes.
+   * Useful for linking the model with reactive UI updates.
+   * @param {Function} listener - A callback function that is called on every model update.
+   * @example
+   * model.subscribe(() => console.log('Todos changed!'));
    */
   subscribe(listener) {
     this.listeners.push(listener);
   }
 
   /**
-   * Notifies all registered subscribers of a state change.
+   * Notifies all registered listeners of a change in the model.
+   * Called automatically after any mutation (add, update, delete, etc.).
    * @private
    */
   notify() {
-    this.listeners.forEach(callback => callback());
+    this.listeners.forEach(listener => listener());
   }
 
   /**
-   * Creates and appends a new todo item.
-   * @param {string} text - The task description.
-   * @param {('low'|'medium'|'high')} [priority] - Task priority level.
-   * @returns {void}
+   * Adds a new todo item to the list.
+   * @param {string} text - The text content of the new todo.
+   * @example
+   * model.addTodo('Buy groceries');
    */
-  addTodo(text, priority = 'medium') {
-    if (!text || text.trim() === '') return;
+  addTodo(text) {
+    if (!text || text.trim() === '') {
+      return;
+    }
 
     const todo = {
       id: this.nextId++,
       text: text.trim(),
       completed: false,
-      priority,
-      createdAt: new Date().toISOString(),
+      createdAt: new Date().toISOString()
     };
 
     this.todos.push(todo);
@@ -90,9 +70,10 @@ export class TodoModel {
   }
 
   /**
-   * Toggles the completion status of a todo by ID.
-   * @param {number} id - The unique identifier of the todo.
-   * @returns {void}
+   * Toggles the completion state of a todo item by ID.
+   * @param {number} id - The ID of the todo item to toggle.
+   * @example
+   * model.toggleComplete(2);
    */
   toggleComplete(id) {
     const todo = this.todos.find(t => t.id === id);
@@ -104,21 +85,22 @@ export class TodoModel {
   }
 
   /**
-   * Removes a todo item by ID.
+   * Deletes a todo item by ID.
    * @param {number} id - The ID of the todo to delete.
-   * @returns {void}
+   * @example
+   * model.deleteTodo(3);
    */
   deleteTodo(id) {
     this.todos = this.todos.filter(t => t.id !== id);
     this.save();
     this.notify();
   }
-
   /**
-   * Updates the text of an existing todo.
+   * Updates the text of a todo item.
    * @param {number} id - The ID of the todo to update.
-   * @param {string} newText - The new task description.
-   * @returns {void}
+   * @param {string} newText - The new text for the todo item.
+   * @example
+   * model.updateTodo(1, 'Finish project report');
    */
   updateTodo(id, newText) {
     const todo = this.todos.find(t => t.id === id);
@@ -131,17 +113,18 @@ export class TodoModel {
 
   /**
    * Removes all completed todos from the list.
-   * @returns {void}
+   * @example
+   * model.clearCompleted();
    */
   clearCompleted() {
     this.todos = this.todos.filter(t => !t.completed);
     this.save();
     this.notify();
   }
-
   /**
-   * Deletes all todos regardless of completion status.
-   * @returns {void}
+   * Removes **all** todos, regardless of completion state.
+   * @example
+   * model.clearAll();
    */
   clearAll() {
     this.todos = [];
@@ -150,36 +133,30 @@ export class TodoModel {
   }
 
   /**
-   * Returns the count of incomplete (active) todos.
-   * @returns {number} Number of active tasks.
+   * Gets the count of active (not completed) todos.
+   * @type {number}
+   * @readonly
+   * @example
+   * console.log(model.activeCount); // e.g., 3
    */
   get activeCount() {
     return this.todos.filter(t => !t.completed).length;
   }
 
   /**
-   * Returns the count of completed todos.
-   * @returns {number} Number of completed tasks.
+   * Gets the count of completed todos.
+   * @type {number}
+   * @readonly
+   * @example
+   * console.log(model.completedCount); // e.g., 2
    */
   get completedCount() {
     return this.todos.filter(t => t.completed).length;
   }
 
   /**
-   * Filters todos by a search query (case-insensitive).
-   * @param {string} [query] - Text to search within todo descriptions.
-   * @returns {Array<TodoItem>} Array of matching todo items.
-   */
-  search(query = '') {
-    if (!query) return this.todos;
-    const term = query.toLowerCase();
-    return this.todos.filter(t => t.text.toLowerCase().includes(term));
-  }
-
-  /**
-   * Persists the current state to storage.
-   *
-   * Called internally after every mutation.
+   * Saves the current todos and next ID value to persistent storage.
+   * This method is automatically called whenever a change is made.
    * @private
    */
   save() {
@@ -187,13 +164,3 @@ export class TodoModel {
     this.storage.save('nextId', this.nextId);
   }
 }
-
-/**
- * Represents a single todo item in the application.
- * @typedef {object} TodoItem
- * @property {number} id - Unique identifier.
- * @property {string} text - Task description.
- * @property {boolean} completed - Completion status.
- * @property {('low'|'medium'|'high')} priority - Task urgency level.
- * @property {string} createdAt - ISO 8601 timestamp of creation.
- */

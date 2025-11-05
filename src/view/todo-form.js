@@ -1,25 +1,30 @@
 import { LitElement, html, css } from 'lit';
+/**
+ * @class TodoForm
+ * @augments LitElement
+ * @description
+ * A reusable input form component for adding new todos.
+ * Captures user input, validates it, and dispatches an `add-todo`
+ * custom event to the parent component (`todo-app`) when submitted.
+ */
 
 /**
- * `<todo-form>` – Simple form to add new todos.
  *
- * Has one text input and an "Add" button.
- * Fires `add-todo` when user submits a non-empty value.
- * @example
- * <todo-form @add-todo=${e => model.addTodo(e.detail.text)}></todo-form>
  */
 export class TodoForm extends LitElement {
   /**
-   * Current text in the input field.
-   * @type {string}
+   * Reactive properties used by the component.
    */
   static properties = {
+    /**
+     * The current text entered in the input field.
+     * @type {boolean}
+     */
     inputValue: { state: true },
   };
 
   /**
-   * Styles for the form.
-   * @type {CSSResult}
+   * CSS styles for the component.
    */
   static styles = css`
     :host {
@@ -73,16 +78,22 @@ export class TodoForm extends LitElement {
   `;
 
   /**
-   *
+   * Creates a new TodoForm instance and initializes its state.
    */
   constructor() {
     super();
     this.inputValue = '';
   }
-
   /**
-   * Submit handler – fires `add-todo` event.
-   * @param {Event} e
+   * Handles form submission.
+   * Prevents the default form submission behavior,
+   * validates the input, and dispatches a custom `add-todo` event.
+   * @param {SubmitEvent} e - The form submission event.
+   * @fires TodoForm#add-todo
+   * @example
+   * todoForm.addEventListener('add-todo', (e) => {
+   *   console.log(e.detail.text); // new todo text
+   * });
    */
   handleSubmit(e) {
     e.preventDefault();
@@ -100,16 +111,16 @@ export class TodoForm extends LitElement {
   }
 
   /**
-   * Updates `inputValue` when user types.
-   * @param {InputEvent} e
+   * Updates the input value as the user types.
+   * @param {InputEvent} e - The input event triggered when typing in the text field.
    */
   handleInput(e) {
     this.inputValue = e.target.value;
   }
 
   /**
-   * Renders the form.
-   * @returns {TemplateResult}
+   * Renders the todo input form.
+   * @returns {import('lit').TemplateResult} The rendered HTML template.
    */
   render() {
     return html`

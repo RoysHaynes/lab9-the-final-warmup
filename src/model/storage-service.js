@@ -1,161 +1,89 @@
 /**
- * TodoModel – Core business logic for the todo app.
- *
- * Uses Observer pattern to notify UI when data changes.
- * Saves everything to localStorage via StorageService.
- * @example
- * const storage = new StorageService();
- * const model = new TodoModel(storage);
- * model.subscribe(() => updateUI(model.todos));
- * model.addTodo('Finish lab', 'high');
+ * @class StorageService
+ * @description
+ * A utility class for managing application data in `localStorage`.
+ * Provides methods to save, load, remove, and clear data, with
+ * error handling and namespacing via a configurable storage key prefix.
  */
-export class TodoModel {
+export class StorageService {
   /**
-   * @param {StorageService} storageService - Handles saving/loading
+   * Creates a new StorageService instance.
+   * @param {string} [storageKey] - The base key prefix used to namespace stored items.
    */
-  constructor(storageService) {
-    /** @private */
-    this.storage = storageService;
-    this.todos = this.storage.load('items', []);
-    this.listeners = [];
-    this.nextId = this.storage.load('nextId', 1);
+  constructor(storageKey = 'todos') {
+    /** @type {string} */
+    this.storageKey = storageKey;
   }
 
   /**
-   * Add a listener for UI updates.
-   * @param {function} listener
+   * Saves data to `localStorage` under a namespaced key.
+   * Automatically converts the data to a JSON string.
+   * @param {string} k - The specific key to store the data under (suffix of the storage key).
+   * @param {*} d - The data to store (will be serialized with `JSON.stringify`).
+   * @example
+   * storage.save('list', [{ text: 'Do homework' }]);
    */
-  subscribe(listener) {
-    this.listeners.push(listener);
-  }
-
-  /**
-   * Notify all listeners of a change.
-   * @private
-   */
-  notify() {
-    this.listeners.forEach(cb => cb());
-  }
-
-  /**
-   * Add a new todo.
-   * @param {string} text
-   * @param {string} [priority='medium']
-   */
-  addTodo(text, priority = 'medium') {
-    if (!text?.trim()) return;
-
-    const todo = {
-      id: this.nextId++,
-      text: text.trim(),
-      completed: false,
-      priority,
-      createdAt: new Date().toISOString()
-    };
-
-    this.todos.push(todo);
-    this.save();
-    this.notify();
-  }
-
-  /**
-   * Toggle completion.
-   * @param {number} id
-   */
-  toggleComplete(id) {
-    const todo = this.todos.find(t => t.id === id);
-    if (todo) {
-      todo.completed = !todo.completed;
-      this.save();
-      this.notify();
+  save(k, d) {
+    try {
+      const fk = `${this.storageKey}_${k}`;
+      localStorage.setItem(fk, JSON.stringify(d));
+    } catch (error) {
+      console.error('Failed to save to localStorage:', error);
     }
   }
 
   /**
-   * Delete a todo.
-   * @param {number} id
+   * Loads and parses data from `localStorage`.
+   * @param {string} key - The specific key to load data from (suffix of the storage key).
+   * @param {*} [defaultValue] - The value to return if no data is found or parsing fails.
+   * @returns {*} The parsed data from storage, or the provided `defaultValue` if unavailable.
+   * @example
+   * const todos = storage.load('list', []);
    */
-  deleteTodo(id) {
-    this.todos = this.todos.filter(t => t.id !== id);
-    this.save();
-    this.notify();
-  }
-
-  /**
-   * Update todo text.
-   * @param {number} id
-   * @param {string} newText
-   */
-  updateTodo(id, newText) {
-    const todo = this.todos.find(t => t.id === id);
-    if (todo && newText?.trim()) {
-      todo.text = newText.trim();
-      this.save();
-      this.notify();
+  load(key, defaultValue = null) {
+    try {
+      const fullKey = `${this.storageKey}_${key}`;
+      const item = localStorage.getItem(fullKey);
+      return item ? JSON.parse(item) : defaultValue;
+    } catch (error) {
+      console.error('Failed to load from localStorage:', error);
+      return defaultValue;
     }
   }
 
   /**
-   * Remove all completed todos.
+   * Removes a specific item from `localStorage`.
+   * @param {string} k - The specific key to remove (suffix of the storage key).
+   * @example
+   * storage.remove('list');
    */
-  clearCompleted() {
-    this.todos = this.todos.filter(t => !t.completed);
-    this.save();
-    this.notify();
+  remove(k) {
+    try {
+      const fullK = `${this.storageKey}_${k}`;
+      localStorage.removeItem(fullK);
+    } catch (e) {
+      console.error('Failed to remove from localStorage:', e);
+    }
   }
 
   /**
-   * Remove all todos.
+   * Clears all keys in `localStorage` that match the current storage prefix.
+   * Useful for resetting app data without affecting unrelated storage entries.
+   * @example
+   * storage.clear();
    */
-  clearAll() {
-    this.todos = [];
-    this.save();
-    this.notify();
-  }
-
-  /**
-   * Count active todos.
-   * @returns {number}
-   */
-  get activeCount() {
-    return this.todos.filter(t => !t.completed).length;
-  }
-
-  /**
-   * Count completed todos.
-   * @returns {number}
-   */
-  get completedCount() {
-    return this.todos.filter(t => t.completed).length;
-  }
-
-  /**
-   * Search todos by text.
-   * @param {string} [query='']
-   * @returns {Array<TodoItem>}
-   */
-  search(query = '') {
-    if (!query) return this.todos;
-    const q = query.toLowerCase();
-    return this.todos.filter(t => t.text.toLowerCase().includes(q));
-  }
-
-  /**
-   * Save current state.
-   * @private
-   */
-  save() {
-    this.storage.save('items', this.todos);
-    this.storage.save('nextId', this.nextId);
+  clear() {
+    try {
+      const keysToRemove = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith(this.storageKey)) {
+          keysToRemove.push(key);
+        }
+      }
+      keysToRemove.forEach(key => localStorage.removeItem(key));
+    } catch (error) {
+      console.error('Failed to clear localStorage:', error);
+    }
   }
 }
-
-/**
- * A single todo item.
- * @typedef {object} TodoItem
- * @property {number} id
- * @property {string} text
- * @property {boolean} completed
- * @property {string} priority
- * @property {string} createdAt
- */
