@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { TodoModel } from '../src/models/todo-model.js';
+import { TodoModel } from '../../src/model/todo-model.js';
 
 /**
  * Mock storage service for testing

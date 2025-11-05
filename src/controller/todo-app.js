@@ -1,8 +1,8 @@
 import { LitElement, html, css } from 'lit';
-import { TodoModel } from '../models/todo-model.js';
-import { StorageService } from '../services/storage-service.js';
-import './todo-form.js';
-import './todo-list.js';
+import { TodoModel } from '../model/todo-model.js';
+import { StorageService } from '../model/storage-service.js';
+import '../view/todo-form.js';
+import '../view/todo-list.js';
 
 /**
  * TodoApp - Main application component
