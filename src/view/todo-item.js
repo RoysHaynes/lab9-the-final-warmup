@@ -1,31 +1,17 @@
 import { LitElement, html, css } from 'lit';
 
 /**
- * `<todo-item>` – Renders and manages a single todo entry.
+ * `<todo-item>` – One todo in the list.
  *
- * Supports:
- * - Toggle completion
- * - Inline editing (Enter/Esc)
- * - Delete with confirmation
- * - Visual feedback (hover, completed state, disabled edit when done)
- * @fires TodoItem#toggle-todo   - When checkbox is changed
- * @fires TodoItem#delete-todo   - When delete button is confirmed
- * @fires TodoItem#update-todo   - When edit is saved
- * @example
- * <todo-item .todo=${todoObj}
- *   @toggle-todo=${e => model.toggleComplete(e.detail.id)}
- *   @delete-todo=${e => model.deleteTodo(e.detail.id)}
- *   @update-todo=${e => model.updateTodo(e.detail.id, e.detail.text)}>
- * </todo-item>
+ * Lets user:
+ * - Check/uncheck
+ * - Edit text (Enter/Esc)
+ * - Delete (with confirm)
  */
 export class TodoItem extends LitElement {
   /**
-   * Reactive properties.
-   * @type {{
-   *   todo: { type: Object },
-   *   isEditing: { state: true },
-   *   editValue: { state: true }
-   * }}
+   * Reactive props.
+   * @type {{todo: object, isEditing: boolean, editValue: string}}
    */
   static properties = {
     todo: { type: Object },
@@ -34,7 +20,7 @@ export class TodoItem extends LitElement {
   };
 
   /**
-   * Shadow DOM styles – scoped and encapsulated.
+   * Styles for the item.
    * @type {CSSResult}
    */
   static styles = css`
@@ -65,14 +51,12 @@ export class TodoItem extends LitElement {
       height: 20px;
       cursor: pointer;
     }
-
     .todo-text {
       flex: 1;
       font-size: 16px;
       color: #333;
       word-break: break-word;
     }
-
     .todo-text.completed {
       text-decoration: line-through;
       color: #999;
@@ -91,7 +75,6 @@ export class TodoItem extends LitElement {
       display: flex;
       gap: 8px;
     }
-
     button {
       padding: 6px 12px;
       border: none;
@@ -105,34 +88,27 @@ export class TodoItem extends LitElement {
       background: #4caf50;
       color: white;
     }
-
     .edit-btn:hover {
       background: #45a049;
     }
-
     .delete-btn {
       background: #f44336;
       color: white;
     }
-
     .delete-btn:hover {
       background: #da190b;
     }
-
     .save-btn {
       background: #2196f3;
       color: white;
     }
-
     .save-btn:hover {
       background: #0b7dda;
     }
-
     .cancel-btn {
       background: #757575;
       color: white;
     }
-
     .cancel-btn:hover {
       background: #616161;
     }
@@ -142,25 +118,19 @@ export class TodoItem extends LitElement {
       cursor: not-allowed;
     }
   `;
-
-  /**
-   * Initializes component state.
-   */
+    /**
+     * constructor
+     */
   constructor() {
     super();
-    /** @private */
     this.isEditing = false;
-    /** @private */
     this.editValue = '';
   }
 
-  /* --------------------------------------------------------------------- *
-   *  Event Dispatchers
-   * --------------------------------------------------------------------- */
+  // --- Event dispatchers ---
 
   /**
-   * Emits `toggle-todo` event with the todo ID.
-   * @fires TodoItem#toggle-todo
+   *
    */
   handleToggle() {
     this.dispatchEvent(
@@ -171,10 +141,8 @@ export class TodoItem extends LitElement {
       })
     );
   }
-
   /**
-   * Prompts for confirmation then emits `delete-todo`.
-   * @fires TodoItem#delete-todo
+   * handles delete
    */
   handleDelete() {
     if (confirm('Delete this todo?')) {
@@ -189,7 +157,7 @@ export class TodoItem extends LitElement {
   }
 
   /**
-   * Enters edit mode and pre-fills the current text.
+   * handles edits
    */
   handleEdit() {
     this.isEditing = true;
@@ -197,15 +165,14 @@ export class TodoItem extends LitElement {
   }
 
   /**
-   * Saves edited text if non-empty and exits edit mode.
-   * @fires TodoItem#update-todo
+   * handles saves
    */
   handleSave() {
-    const trimmed = this.editValue.trim();
-    if (trimmed) {
+    const text = this.editValue.trim();
+    if (text) {
       this.dispatchEvent(
         new CustomEvent('update-todo', {
-          detail: { id: this.todo.id, text: trimmed },
+          detail: { id: this.todo.id, text },
           bubbles: true,
           composed: true,
         })
@@ -215,89 +182,69 @@ export class TodoItem extends LitElement {
   }
 
   /**
-   * Discards changes and exits edit mode.
+   *cancels
    */
   handleCancel() {
     this.isEditing = false;
     this.editValue = '';
   }
 
-  /**
-   * Handles keyboard shortcuts in edit mode.
-   *
-   * - **Enter**: Save
-   * - **Escape**: Cancel
-   * @param {KeyboardEvent} e
-   */
+  /** @param {KeyboardEvent} e */
   handleKeyDown(e) {
-    if (e.key === 'Enter') {
-      this.handleSave();
-    } else if (e.key === 'Escape') {
-      this.handleCancel();
-    }
+    if (e.key === 'Enter') this.handleSave();
+    else if (e.key === 'Escape') this.handleCancel();
   }
 
-  /* --------------------------------------------------------------------- *
-   *  Rendering
-   * --------------------------------------------------------------------- */
+  // --- Render ---
 
-  /**
-   * Renders either the **view** or **edit** template based on state.
-   * @returns {TemplateResult}
-   */
+  /** @returns {TemplateResult} */
   render() {
     if (this.isEditing) {
-      return html`
-        <div class="todo-item">
-          <input
-            class="edit-input"
-            type="text"
-            .value=${this.editValue}
-            @input=${e => (this.editValue = e.target.value)}
-            @keydown=${this.handleKeyDown}
-            autofocus
-          />
-          <div class="button-group">
-            <button class="save-btn" @click=${this.handleSave}>Save</button>
-            <button class="cancel-btn" @click=${this.handleCancel}>
-              Cancel
-            </button>
-          </div>
+      return html` <div class="todo-item">
+        <input
+          class="edit-input"
+          type="text"
+          .value=${this.editValue}
+          @input=${e => (this.editValue = e.target.value)}
+          @keydown=${this.handleKeyDown}
+          autofocus
+        />
+        <div class="button-group">
+          <button class="save-btn" @click=${this.handleSave}>Save</button>
+          <button class="cancel-btn" @click=${this.handleCancel}>Cancel</button>
         </div>
-      `;
+      </div>`;
     }
 
-    return html`
-      <div class="todo-item">
-        <input
-          type="checkbox"
-          class="checkbox"
-          .checked=${this.todo.completed}
-          @change=${this.handleToggle}
-          aria-label="Toggle todo"
-        />
-        <span class="todo-text ${this.todo.completed ? 'completed' : ''}">
-          ${this.todo.text}
-        </span>
-        <div class="button-group">
-          <button
-            class="edit-btn"
-            @click=${this.handleEdit}
-            ?disabled=${this.todo.completed}
-            aria-label="Edit todo"
-          >
-            Edit
-          </button>
-          <button
-            class="delete-btn"
-            @click=${this.handleDelete}
-            aria-label="Delete todo"
-          >
-            Delete
-          </button>
-        </div>
+    return html` <div class="todo-item">
+      <input
+        type="checkbox"
+        class="checkbox"
+        .checked=${this.todo.completed}
+        @change=${this.handleToggle}
+        aria-label="Toggle todo"
+      />
+      <span class="todo-text ${this.todo.completed ? 'completed' : ''}">
+        ${this.todo.text}
+      </span>
+      <div class="button-group">
+        <button
+          class="edit-btn"
+          @click=${this.handleEdit}
+          ?disabled=${this.todo.completed}
+          aria-label="Edit todo"
+        >
+          Edit
+        </button>
+        <button
+          class="delete-btn"
+          @click=${this.handleDelete}
+          aria-label="Delete todo"
+        >
+          Delete
+        </button>
       </div>
-    `;
+    </div>`;
   }
 }
 

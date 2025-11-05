@@ -29,7 +29,10 @@
   },
   "devDependencies": {
     "eslint": "^8.55.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsdoc": "^61.1.12",
+    "eslint-plugin-lit": "^2.1.1",
     "jsdoc": "^4.0.5",
     "minami": "^1.2.3",
     "prettier": "^3.6.2",

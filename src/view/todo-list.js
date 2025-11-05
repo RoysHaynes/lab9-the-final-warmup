@@ -1,43 +1,26 @@
 import { LitElement, html, css } from 'lit';
 import './todo-item.js';
+
 /**
- * `<todo-list>` – Renders a scrollable list of todo items.
+ * `<todo-list>` – Shows the list of todos.
  *
- * Displays:
- * - An **empty state** when no todos exist
- * - A **virtualized-style list** using native `<todo-item>` components
- * - **Custom scrollbar** styling for WebKit browsers
+ * - Shows empty message if no todos
+ * - Renders each todo with `<todo-item>`
+ * - Has custom scrollbar (Chrome/Edge)
  *
- * The component is **purely presentational** – it receives `todos` as a property
- * and forwards all user interactions (toggle, edit, delete) via event bubbling.
- * @property {Array<TodoItem>} todos - Array of todo objects to display.
- * @fires TodoItem#toggle-todo   - Bubbled from child `<todo-item>`
- * @fires TodoItem#delete-todo   - Bubbled from child
- * @fires TodoItem#update-todo   - Bubbled from child
- * @example
- * <todo-list
- *   .todos=${model.todos}
- *   @toggle-todo=${e => model.toggleComplete(e.detail.id)}
- *   @delete-todo=${e => model.deleteTodo(e.detail.id)}
- *   @update-todo=${e => model.updateTodo(e.detail.id, e.detail.text)}>
- * </todo-list>
+ * Just displays data – all clicks bubble up.
  */
 export class TodoList extends LitElement {
   /**
-   * Reactive property: the array of todos to render.
-   * @type {Array<TodoItem>}
+   * List of to dos to show.
+   * @type {Array<object>}
    */
   static properties = {
     todos: { type: Array },
   };
 
   /**
-   * Shadow DOM styles – encapsulated and performance-optimized.
-   *
-   * Includes:
-   * - Scroll container with max height
-   * - Custom scrollbar (WebKit only)
-   * - Empty state styling
+   * Styles for list and empty state.
    * @type {CSSResult}
    */
   static styles = css`
@@ -51,7 +34,6 @@ export class TodoList extends LitElement {
       color: white;
       font-size: 18px;
     }
-
     .empty-icon {
       font-size: 48px;
       margin-bottom: 16px;
@@ -62,44 +44,37 @@ export class TodoList extends LitElement {
       overflow-y: auto;
     }
 
-    /* Custom scrollbar – WebKit only */
+    /* Custom scrollbar (Chrome/Edge) */
     .list-container::-webkit-scrollbar {
       width: 8px;
     }
-
     .list-container::-webkit-scrollbar-track {
       background: rgba(255, 255, 255, 0.1);
       border-radius: 4px;
     }
-
     .list-container::-webkit-scrollbar-thumb {
       background: rgba(255, 255, 255, 0.3);
       border-radius: 4px;
     }
-
     .list-container::-webkit-scrollbar-thumb:hover {
       background: rgba(255, 255, 255, 0.5);
     }
   `;
 
   /**
-   * Initializes with an empty todo array.
+   *
    */
   constructor() {
     super();
-    /** @private */
     this.todos = [];
   }
 
   /**
-   * Renders the list or empty state.
-   *
-   * Uses `Array.map` to generate `<todo-item>` elements.
-   * Events from children bubble up automatically due to `composed: true`.
+   * Renders empty state or list of items.
    * @returns {TemplateResult}
    */
   render() {
-    if (this.todos.length === 0) {
+    if (!this.todos.length) {
       return html`
         <div class="empty-state">
           <div class="empty-icon">pencil</div>

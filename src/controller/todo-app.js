@@ -1,96 +1,77 @@
 /**
- * TodoApp – the **root** Lit component that glues the MVC layers together.
+ * TodoApp – Main application component.
  *
- * It:
- * 1. Instantiates {@link StorageService} and {@link TodoModel}.
- * 2. Subscribes to model changes and keeps `this.todos` in sync.
- * 3. Dispatches user actions to the model.
- * 4. Renders the UI (stats, form, list, actions).
+ * Coordinates the model (TodoModel), storage (StorageService), and views.
+ * Renders the full UI and handles user actions.
  * @augments LitElement
- * @fires TodoForm#add-todo → handled by {@link TodoApp#handleAddTodo}
- * @fires TodoItem#toggle-todo → handled by {@link TodoApp#handleToggleTodo}
- * @fires TodoItem#delete-todo → handled by {@link TodoApp#handleDeleteTodo}
- * @fires TodoItem#update-todo → handled by {@link TodoApp#handleUpdateTodo}
- * @example
- * // In index.html
- * <todo-app></todo-app>
  */
 export class TodoApp extends LitElement {
   /**
-   * Reactive state – the current array of todo objects.
+   * Reactive state: current list of todos.
    * @type {Array<TodoItemData>}
-   * @private
    */
   static properties = {
     todos: { state: true },
   };
 
   /**
-   * Global CSS for the whole app.
+   * Global styles for the app.
    * @type {CSSResult}
    */
   static styles = css`
-    /* … (your existing CSS) … */
+    /* ... your CSS ... */
   `;
 
   /**
-   * @param {StorageService} [storageService] - Persistence layer.
-   * @param {TodoModel} [model] - Optional pre-instantiated model (useful for testing).
+   * @param {StorageService} [storageService] - Optional storage instance.
+   * @param {TodoModel} [model] - Optional pre-made model (for testing).
    */
   constructor(storageService = new StorageService(), model) {
     super();
-    /** @private */
     this.storageService = storageService;
-    /** @private */
     this.model = model ?? new TodoModel(this.storageService);
-    /** @private */
     this.todos = this.model.todos;
 
-    // React to any model mutation
+    // Update UI when model changes
     this.model.subscribe(() => {
       this.todos = [...this.model.todos];
     });
   }
 
-  /* --------------------------------------------------------------------- *
-   *  Event handlers – each maps a custom event to a model method.
-   * --------------------------------------------------------------------- */
-
   /**
-   * Handles the `add-todo` event dispatched by `<todo-form>`.
-   * @param {CustomEvent<{text:string}>} e - Event payload.
+   * Handles adding a new todo from the form.
+   * @param {CustomEvent} e - Event with `detail.text`
    */
   handleAddTodo(e) {
     this.model.addTodo(e.detail.text);
   }
 
   /**
-   * Handles the `toggle-todo` event from `<todo-item>`.
-   * @param {CustomEvent<{id:number}>} e
+   * Toggles a todo's completed state.
+   * @param {CustomEvent} e - Event with `detail.id`
    */
   handleToggleTodo(e) {
     this.model.toggleComplete(e.detail.id);
   }
 
   /**
-   * Handles the `delete-todo` event from `<todo-item>`.
-   * @param {CustomEvent<{id:number}>} e
+   * Deletes a todo.
+   * @param {CustomEvent} e - Event with `detail.id`
    */
   handleDeleteTodo(e) {
     this.model.deleteTodo(e.detail.id);
   }
 
   /**
-   * Handles the `update-todo` event from `<todo-item>` (edit mode).
-   * @param {CustomEvent<{id:number, text:string}>} e
+   * Updates a todo's text.
+   * @param {CustomEvent} e - Event with `detail.id` and `detail.text`
    */
   handleUpdateTodo(e) {
     this.model.updateTodo(e.detail.id, e.detail.text);
   }
 
   /**
-   * Clears **all** completed todos after user confirmation.
-   * @fires TodoModel#clearCompleted
+   * Clears all completed todos after confirmation.
    */
   handleClearCompleted() {
     if (confirm('Clear all completed todos?')) {
@@ -99,8 +80,7 @@ export class TodoApp extends LitElement {
   }
 
   /**
-   * Deletes **every** todo after user confirmation.
-   * @fires TodoModel#clearAll
+   * Deletes all todos after confirmation.
    */
   handleClearAll() {
     if (confirm('Clear ALL todos? This cannot be undone.')) {
@@ -108,12 +88,8 @@ export class TodoApp extends LitElement {
     }
   }
 
-  /* --------------------------------------------------------------------- *
-   *  Rendering
-   * --------------------------------------------------------------------- */
-
   /**
-   * Renders the whole application UI.
+   * Renders the full app UI.
    * @returns {TemplateResult}
    */
   render() {
@@ -171,13 +147,13 @@ export class TodoApp extends LitElement {
 }
 
 /**
- * Shape of a single todo object stored in {@link TodoModel#todos}.
+ * Data shape of a single todo item.
  * @typedef {object} TodoItemData
- * @property {number} id - Unique identifier.
- * @property {string} text - User-entered description.
- * @property {boolean} completed - Completion flag.
- * @property {string} [priority] - Optional priority (my addition).
- * @property {string} createdAt - ISO timestamp of creation.
+ * @property {number} id
+ * @property {string} text
+ * @property {boolean} completed
+ * @property {string} [priority] - Optional priority
+ * @property {string} createdAt - ISO timestamp
  */
 
 customElements.define('todo-app', TodoApp);

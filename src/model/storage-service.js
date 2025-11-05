@@ -1,100 +1,161 @@
 /**
- * StorageService – a **namespaced wrapper** around `localStorage`.
+ * TodoModel – Core business logic for the todo app.
  *
- * All keys are prefixed with `storageKey_` to avoid collisions with other apps.
- * Errors are caught and logged; methods never throw.
+ * Uses Observer pattern to notify UI when data changes.
+ * Saves everything to localStorage via StorageService.
  * @example
- * // Default usage (prefix: "todos")
  * const storage = new StorageService();
- * storage.save('items', [{ id: 1, text: 'Buy milk' }]);
- * const todos = storage.load('items', []); // → array or default
- * @example
- * // Custom namespace
- * const userStorage = new StorageService('myapp_user');
- * userStorage.save('profile', { name: 'Roy' });
+ * const model = new TodoModel(storage);
+ * model.subscribe(() => updateUI(model.todos));
+ * model.addTodo('Finish lab', 'high');
  */
-export class StorageService {
+export class TodoModel {
   /**
-   * @param {string} [storageKey] - Prefix for all stored keys.
+   * @param {StorageService} storageService - Handles saving/loading
    */
-  constructor(storageKey = 'todos') {
-    /**
-     * The namespace prefix used for all keys.
-     * @private
-     */
-    this.storageKey = storageKey;
+  constructor(storageService) {
+    /** @private */
+    this.storage = storageService;
+    this.todos = this.storage.load('items', []);
+    this.listeners = [];
+    this.nextId = this.storage.load('nextId', 1);
   }
 
   /**
-   * Persists a JSON-serializable value under a logical key.
-   * @param {string} key - Logical identifier (e.g., `'items'`, `'settings'`).
-   * @param {any} data - Value to store. Must be JSON-serializable.
-   * @example
-   * storage.save('nextId', 42);
+   * Add a listener for UI updates.
+   * @param {function} listener
    */
-  save(key, data) {
-    try {
-      const fullKey = `${this.storageKey}_${key}`;
-      localStorage.setItem(fullKey, JSON.stringify(data));
-    } catch (error) {
-      console.error('StorageService.save() failed:', { key, error });
+  subscribe(listener) {
+    this.listeners.push(listener);
+  }
+
+  /**
+   * Notify all listeners of a change.
+   * @private
+   */
+  notify() {
+    this.listeners.forEach(cb => cb());
+  }
+
+  /**
+   * Add a new todo.
+   * @param {string} text
+   * @param {string} [priority='medium']
+   */
+  addTodo(text, priority = 'medium') {
+    if (!text?.trim()) return;
+
+    const todo = {
+      id: this.nextId++,
+      text: text.trim(),
+      completed: false,
+      priority,
+      createdAt: new Date().toISOString()
+    };
+
+    this.todos.push(todo);
+    this.save();
+    this.notify();
+  }
+
+  /**
+   * Toggle completion.
+   * @param {number} id
+   */
+  toggleComplete(id) {
+    const todo = this.todos.find(t => t.id === id);
+    if (todo) {
+      todo.completed = !todo.completed;
+      this.save();
+      this.notify();
     }
   }
 
   /**
-   * Retrieves and parses a value.
-   * @param {string} key - Logical key.
-   * @param {any} [defaultValue] - Fallback if key missing or corrupted.
-   * @returns {any} Parsed value or `defaultValue`.
-   * @example
-   * const todos = storage.load('items', []); // [] if nothing stored
+   * Delete a todo.
+   * @param {number} id
    */
-  load(key, defaultValue = null) {
-    try {
-      const fullKey = `${this.storageKey}_${key}`;
-      const item = localStorage.getItem(fullKey);
-      return item !== null ? JSON.parse(item) : defaultValue;
-    } catch (error) {
-      console.error('StorageService.load() failed:', { key, error });
-      return defaultValue;
+  deleteTodo(id) {
+    this.todos = this.todos.filter(t => t.id !== id);
+    this.save();
+    this.notify();
+  }
+
+  /**
+   * Update todo text.
+   * @param {number} id
+   * @param {string} newText
+   */
+  updateTodo(id, newText) {
+    const todo = this.todos.find(t => t.id === id);
+    if (todo && newText?.trim()) {
+      todo.text = newText.trim();
+      this.save();
+      this.notify();
     }
   }
 
   /**
-   * Deletes a single namespaced entry.
-   * @param {string} key - Logical key to remove.
-   * @example
-   * storage.remove('items'); // deletes "todos_items"
+   * Remove all completed todos.
    */
-  remove(key) {
-    try {
-      const fullKey = `${this.storageKey}_${key}`;
-      localStorage.removeItem(fullKey);
-    } catch (error) {
-      console.error('StorageService.remove() failed:', { key, error });
-    }
+  clearCompleted() {
+    this.todos = this.todos.filter(t => !t.completed);
+    this.save();
+    this.notify();
   }
 
   /**
-   * Removes **all** keys belonging to this service.
-   * @example
-   * storage.clear(); // wipes todos_items, todos_nextId, etc.
+   * Remove all todos.
    */
-  clear() {
-    try {
-      const prefix = this.storageKey;
-      const keysToRemove = [];
+  clearAll() {
+    this.todos = [];
+    this.save();
+    this.notify();
+  }
 
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key && key.startsWith(prefix)) {
-          keysToRemove.push(key);
-        }
-      }
+  /**
+   * Count active todos.
+   * @returns {number}
+   */
+  get activeCount() {
+    return this.todos.filter(t => !t.completed).length;
+  }
 
-      keysToRemove.forEach(k => localStorage.removeItem(k));
-    } catch (error) {
-      console.error('StorageService.clear() failed:', error);
-    }
+  /**
+   * Count completed todos.
+   * @returns {number}
+   */
+  get completedCount() {
+    return this.todos.filter(t => t.completed).length;
+  }
+
+  /**
+   * Search todos by text.
+   * @param {string} [query='']
+   * @returns {Array<TodoItem>}
+   */
+  search(query = '') {
+    if (!query) return this.todos;
+    const q = query.toLowerCase();
+    return this.todos.filter(t => t.text.toLowerCase().includes(q));
+  }
+
+  /**
+   * Save current state.
+   * @private
+   */
+  save() {
+    this.storage.save('items', this.todos);
+    this.storage.save('nextId', this.nextId);
   }
 }
+
+/**
+ * A single todo item.
+ * @typedef {object} TodoItem
+ * @property {number} id
+ * @property {string} text
+ * @property {boolean} completed
+ * @property {string} priority
+ * @property {string} createdAt
+ */

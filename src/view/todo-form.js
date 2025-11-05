@@ -1,29 +1,24 @@
 import { LitElement, html, css } from 'lit';
 
 /**
- * `<todo-form>` – Input component for creating new todo items.
+ * `<todo-form>` – Simple form to add new todos.
  *
- * Renders a single-line form with a text field and an "Add" button.
- * Emits a custom `add-todo` event when the user submits a non-empty value.
- * @fires TodoForm#add-todo - Dispatched on form submission with the trimmed text.
- *   ```js
- *   { detail: { text: string } }
- *   ```
+ * Has one text input and an "Add" button.
+ * Fires `add-todo` when user submits a non-empty value.
  * @example
  * <todo-form @add-todo=${e => model.addTodo(e.detail.text)}></todo-form>
  */
 export class TodoForm extends LitElement {
   /**
-   * Reactive state for the text input.
+   * Current text in the input field.
    * @type {string}
-   * @private
    */
   static properties = {
     inputValue: { state: true },
   };
 
   /**
-   * Component styling – scoped to the Shadow DOM.
+   * Styles for the form.
    * @type {CSSResult}
    */
   static styles = css`
@@ -78,26 +73,20 @@ export class TodoForm extends LitElement {
   `;
 
   /**
-   * Initializes component state.
+   *
    */
   constructor() {
     super();
-    /** @private */
     this.inputValue = '';
   }
 
   /**
-   * Handles form submission.
-   *
-   * Prevents default behavior, validates input, dispatches the custom event,
-   * and resets the field.
-   * @param {Event} e - Native submit event.
-   * @fires TodoForm#add-todo
+   * Submit handler – fires `add-todo` event.
+   * @param {Event} e
    */
   handleSubmit(e) {
     e.preventDefault();
     const text = this.inputValue.trim();
-
     if (text) {
       this.dispatchEvent(
         new CustomEvent('add-todo', {
@@ -111,15 +100,15 @@ export class TodoForm extends LitElement {
   }
 
   /**
-   * Syncs the reactive `inputValue` with the `<input>` element.
-   * @param {InputEvent} e - Input event from the text field.
+   * Updates `inputValue` when user types.
+   * @param {InputEvent} e
    */
   handleInput(e) {
     this.inputValue = e.target.value;
   }
 
   /**
-   * Renders the form markup.
+   * Renders the form.
    * @returns {TemplateResult}
    */
   render() {

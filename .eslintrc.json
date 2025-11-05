@@ -6,22 +6,40 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:jsdoc/recommended"
+    "plugin:lit/recommended",
+    "plugin:jsdoc/recommended",
+    "plugin:import/recommended",
+    "prettier"
   ],
   "plugins": [
-    "jsdoc"
+    "jsdoc",
+    "lit",
+    "import"
   ],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
   "rules": {
-    "indent": ["error", 2],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
-    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "indent": [
+      "error",
+      2
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
     "no-console": "off",
-
     "jsdoc/require-param": "error",
     "jsdoc/require-returns": "warn",
     "jsdoc/require-jsdoc": [
@@ -35,6 +53,31 @@
       }
     ],
     "jsdoc/require-param-type": "warn",
-    "jsdoc/require-returns-type": "warn"
+    "jsdoc/require-returns-type": "warn",
+    "jsdoc/no-undefined-types": [
+      "error",
+      {
+        "definedTypes": [
+          "LitElement",
+          "CSSResult",
+          "TemplateResult",
+          "StorageService",
+          "TodoModel",
+          "TodoItem",
+          "TodoItemData"
+        ]
+      }
+    ],
+    "jsdoc/require-param-description": "off",
+    "jsdoc/require-returns-description": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js"
+        ]
+      }
+    }
   }
 }
