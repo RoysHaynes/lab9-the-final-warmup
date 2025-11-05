@@ -118,9 +118,9 @@ export class TodoItem extends LitElement {
       cursor: not-allowed;
     }
   `;
-    /**
-     * constructor
-     */
+  /**
+   * constructor
+   */
   constructor() {
     super();
     this.isEditing = false;
