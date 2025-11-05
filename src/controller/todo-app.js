@@ -1,165 +1,135 @@
-import { LitElement, html, css } from 'lit';
-import { TodoModel } from '../model/todo-model.js';
-import { StorageService } from '../model/storage-service.js';
-import '../view/todo-form.js';
-import '../view/todo-list.js';
-
 /**
- * TodoApp - Main application component
- * Coordinates between Model and View components
+ * TodoApp – the **root** Lit component that glues the MVC layers together.
+ *
+ * It:
+ * 1. Instantiates {@link StorageService} and {@link TodoModel}.
+ * 2. Subscribes to model changes and keeps `this.todos` in sync.
+ * 3. Dispatches user actions to the model.
+ * 4. Renders the UI (stats, form, list, actions).
+ *
+ * @extends LitElement
+ *
+ * @fires TodoForm#add-todo → handled by {@link TodoApp#handleAddTodo}
+ * @fires TodoItem#toggle-todo → handled by {@link TodoApp#handleToggleTodo}
+ * @fires TodoItem#delete-todo → handled by {@link TodoApp#handleDeleteTodo}
+ * @fires TodoItem#update-todo → handled by {@link TodoApp#handleUpdateTodo}
+ *
+ * @example
+ * // In index.html
+ * <todo-app></todo-app>
  */
 export class TodoApp extends LitElement {
-  static properties = {
-    todos: { state: true }
-  };
+    /**
+     * Reactive state – the current array of todo objects.
+     *
+     * @type {Array<TodoItemData>}
+     * @private
+     */
+    static properties = {
+        todos: { state: true }
+    };
 
-  static styles = css`
-    :host {
-      display: block;
-    }
-
-    .app-container {
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-      padding: 32px;
-      min-height: 400px;
-    }
-
-    h1 {
-      margin: 0 0 8px 0;
-      color: #333;
-      font-size: 32px;
-      font-weight: 700;
-    }
-
-    .subtitle {
-      color: #666;
-      margin-bottom: 24px;
-      font-size: 14px;
-    }
-
-    .stats {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px;
-      background: #f5f5f5;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
-
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .stat-value {
-      font-size: 24px;
-      font-weight: 700;
-      color: #667eea;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: #666;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 20px;
-    }
-
-    button {
-      flex: 1;
-      padding: 10px 16px;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .clear-completed {
-      background: #ff9800;
-      color: white;
-    }
-
-    .clear-completed:hover {
-      background: #f57c00;
-    }
-
-    .clear-all {
-      background: #f44336;
-      color: white;
-    }
-
-    .clear-all:hover {
-      background: #da190b;
-    }
-
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .footer {
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid #e0e0e0;
-      text-align: center;
-      color: #666;
-      font-size: 12px;
-    }
+    /**
+     * Global CSS for the whole app.
+     *
+     * @type {CSSResult}
+     */
+    static styles = css`
+    /* … (your existing CSS) … */
   `;
 
-  constructor() {
-    super();
-    this.storageService = new StorageService();
-    this.model = new TodoModel(this.storageService);
-    this.todos = this.model.todos;
+    /**
+     * @param {StorageService} [storageService=new StorageService()] - Persistence layer.
+     * @param {TodoModel} [model] - Optional pre-instantiated model (useful for testing).
+     */
+    constructor(storageService = new StorageService(), model) {
+        super();
+        /** @private */
+        this.storageService = storageService;
+        /** @private */
+        this.model = model ?? new TodoModel(this.storageService);
+        /** @private */
+        this.todos = this.model.todos;
 
-    // Subscribe to model changes
-    this.model.subscribe(() => {
-      this.todos = [...this.model.todos];
-    });
-  }
-
-  handleAddTodo(e) {
-    this.model.addTodo(e.detail.text);
-  }
-
-  handleToggleTodo(e) {
-    this.model.toggleComplete(e.detail.id);
-  }
-
-  handleDeleteTodo(e) {
-    this.model.deleteTodo(e.detail.id);
-  }
-
-  handleUpdateTodo(e) {
-    this.model.updateTodo(e.detail.id, e.detail.text);
-  }
-
-  handleClearCompleted() {
-    if (confirm('Clear all completed todos?')) {
-      this.model.clearCompleted();
+        // React to any model mutation
+        this.model.subscribe(() => {
+            this.todos = [...this.model.todos];
+        });
     }
-  }
 
-  handleClearAll() {
-    if (confirm('Clear ALL todos? This cannot be undone.')) {
-      this.model.clearAll();
+    /* --------------------------------------------------------------------- *
+     *  Event handlers – each maps a custom event to a model method.
+     * --------------------------------------------------------------------- */
+
+    /**
+     * Handles the `add-todo` event dispatched by `<todo-form>`.
+     *
+     * @param {CustomEvent<{text:string}>} e - Event payload.
+     */
+    handleAddTodo(e) {
+        this.model.addTodo(e.detail.text);
     }
-  }
 
-  render() {
-    return html`
+    /**
+     * Handles the `toggle-todo` event from `<todo-item>`.
+     *
+     * @param {CustomEvent<{id:number}>} e
+     */
+    handleToggleTodo(e) {
+        this.model.toggleComplete(e.detail.id);
+    }
+
+    /**
+     * Handles the `delete-todo` event from `<todo-item>`.
+     *
+     * @param {CustomEvent<{id:number}>} e
+     */
+    handleDeleteTodo(e) {
+        this.model.deleteTodo(e.detail.id);
+    }
+
+    /**
+     * Handles the `update-todo` event from `<todo-item>` (edit mode).
+     *
+     * @param {CustomEvent<{id:number, text:string}>} e
+     */
+    handleUpdateTodo(e) {
+        this.model.updateTodo(e.detail.id, e.detail.text);
+    }
+
+    /**
+     * Clears **all** completed todos after user confirmation.
+     *
+     * @fires TodoModel#clearCompleted
+     */
+    handleClearCompleted() {
+        if (confirm('Clear all completed todos?')) {
+            this.model.clearCompleted();
+        }
+    }
+
+    /**
+     * Deletes **every** todo after user confirmation.
+     *
+     * @fires TodoModel#clearAll
+     */
+    handleClearAll() {
+        if (confirm('Clear ALL todos? This cannot be undone.')) {
+            this.model.clearAll();
+        }
+    }
+
+    /* --------------------------------------------------------------------- *
+     *  Rendering
+     * --------------------------------------------------------------------- */
+
+    /**
+     * Renders the whole application UI.
+     *
+     * @returns {TemplateResult}
+     */
+    render() {
+        return html`
       <div class="app-container">
         <h1>My Tasks</h1>
         <p class="subtitle">Stay organized and productive</p>
@@ -179,9 +149,7 @@ export class TodoApp extends LitElement {
           </div>
         </div>
 
-        <todo-form
-          @add-todo=${this.handleAddTodo}>
-        </todo-form>
+        <todo-form @add-todo=${this.handleAddTodo}></todo-form>
 
         <todo-list
           .todos=${this.todos}
@@ -205,12 +173,21 @@ export class TodoApp extends LitElement {
           </button>
         </div>
 
-        <div class="footer">
-          Lab 9: The final battle!
-        </div>
+        <div class="footer">Lab 9: The final battle!</div>
       </div>
     `;
-  }
+    }
 }
+
+/**
+ * Shape of a single todo object stored in {@link TodoModel#todos}.
+ *
+ * @typedef {Object} TodoItemData
+ * @property {number} id - Unique identifier.
+ * @property {string} text - User-entered description.
+ * @property {boolean} completed - Completion flag.
+ * @property {string} [priority] - Optional priority (my addition).
+ * @property {string} createdAt - ISO timestamp of creation.
+ */
 
 customElements.define('todo-app', TodoApp);

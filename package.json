@@ -9,7 +9,10 @@
     "preview": "vite preview",
     "test": "node --test tests/**/*.todo-model.test.js",
     "lint": "eslint src",
-    "lint:fix": "eslint src --fix"
+    "lint:fix": "eslint src --fix",
+    "docs": "jsdoc -c jsdoc.conf.json",
+    "docs:watch": "chokidar 'src/**/*.js' -c 'npm run docs'",
+    "lint:jsdoc": "eslint src --ext .js --fix"
   },
   "keywords": [
     "lit",
@@ -23,7 +26,11 @@
     "lit": "^3.1.0"
   },
   "devDependencies": {
-    "vite": "^5.0.0",
-    "eslint": "^8.55.0"
+    "eslint": "^8.55.0",
+    "eslint-plugin-jsdoc": "^61.1.12",
+    "jsdoc": "^4.0.5",
+    "minami": "^1.2.3",
+    "taffydb": "^2.7.3",
+    "vite": "^5.0.0"
   }
 }

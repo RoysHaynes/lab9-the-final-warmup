@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>view/todo-form.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="StorageService.html">StorageService</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="StorageService.html#clear">clear</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="StorageService.html#load">load</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="StorageService.html#remove">remove</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="StorageService.html#save">save</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TodoApp.html">TodoApp</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleAddTodo">handleAddTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleClearAll">handleClearAll</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleClearCompleted">handleClearCompleted</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleDeleteTodo">handleDeleteTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleToggleTodo">handleToggleTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleUpdateTodo">handleUpdateTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TodoForm.html">TodoForm</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoForm.html#handleInput">handleInput</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoForm.html#handleSubmit">handleSubmit</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoForm.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="global.html#TodoItem">TodoItem</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleCancel">handleCancel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleDelete">handleDelete</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleEdit">handleEdit</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleKeyDown">handleKeyDown</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleSave">handleSave</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleToggle">handleToggle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TodoList.html">TodoList</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoList.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TodoModel.html">TodoModel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#addTodo">addTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#clearAll">clearAll</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#clearCompleted">clearCompleted</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#deleteTodo">deleteTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#search">search</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#subscribe">subscribe</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#toggleComplete">toggleComplete</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#updateTodo">updateTodo</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">view/todo-form.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { LitElement, html, css } from 'lit';
+
+/**
+ * `&lt;todo-form>` – Input component for creating new todo items.
+ *
+ * Renders a single-line form with a text field and an "Add" button.
+ * Emits a custom `add-todo` event when the user submits a non-empty value.
+ *
+ * @fires TodoForm#add-todo - Dispatched on form submission with the trimmed text.
+ *   ```js
+ *   { detail: { text: string } }
+ *   ```
+ *
+ * @example
+ * &lt;todo-form @add-todo=${e => model.addTodo(e.detail.text)}>&lt;/todo-form>
+ */
+export class TodoForm extends LitElement {
+    /**
+     * Reactive state for the text input.
+     *
+     * @type {string}
+     * @private
+     */
+    static properties = {
+        inputValue: { state: true }
+    };
+
+    /**
+     * Component styling – scoped to the Shadow DOM.
+     *
+     * @type {CSSResult}
+     */
+    static styles = css`
+        :host {
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            gap: 8px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #667eea;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #5568d3;
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+    `;
+
+    /**
+     * Initializes component state.
+     */
+    constructor() {
+        super();
+        /** @private */
+        this.inputValue = '';
+    }
+
+    /**
+     * Handles form submission.
+     *
+     * Prevents default behavior, validates input, dispatches the custom event,
+     * and resets the field.
+     *
+     * @param {Event} e - Native submit event.
+     * @fires TodoForm#add-todo
+     */
+    handleSubmit(e) {
+        e.preventDefault();
+        const text = this.inputValue.trim();
+
+        if (text) {
+            this.dispatchEvent(
+                new CustomEvent('add-todo', {
+                    detail: { text },
+                    bubbles: true,
+                    composed: true
+                })
+            );
+            this.inputValue = '';
+        }
+    }
+
+    /**
+     * Syncs the reactive `inputValue` with the `&lt;input>` element.
+     *
+     * @param {InputEvent} e - Input event from the text field.
+     */
+    handleInput(e) {
+        this.inputValue = e.target.value;
+    }
+
+    /**
+     * Renders the form markup.
+     *
+     * @returns {TemplateResult}
+     */
+    render() {
+        return html`
+            &lt;form @submit=${this.handleSubmit}>
+                &lt;input
+                        type="text"
+                        placeholder="What needs to be done?"
+                        .value=${this.inputValue}
+                        @input=${this.handleInput}
+                        aria-label="New todo"
+                        autofocus
+                />
+                &lt;button type="submit" ?disabled=${!this.inputValue.trim()}>
+                    Add
+                &lt;/button>
+            &lt;/form>
+        `;
+    }
+}
+
+customElements.define('todo-form', TodoForm);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed Nov 05 2025 10:52:47 GMT-0800 (Pacific Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

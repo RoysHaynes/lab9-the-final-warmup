@@ -1,64 +1,109 @@
 /**
- * StorageService - Handles localStorage operations for the TODO app
+ * StorageService – a **namespaced wrapper** around `localStorage`.
+ *
+ * All keys are prefixed with `storageKey_` to avoid collisions with other apps.
+ * Errors are caught and logged; methods never throw.
+ *
+ * @example
+ * // Default usage (prefix: "todos")
+ * const storage = new StorageService();
+ * storage.save('items', [{ id: 1, text: 'Buy milk' }]);
+ * const todos = storage.load('items', []); // → array or default
+ *
+ * @example
+ * // Custom namespace
+ * const userStorage = new StorageService('myapp_user');
+ * userStorage.save('profile', { name: 'Roy' });
  */
 export class StorageService {
-  constructor(storageKey = 'todos') {
-    this.storageKey = storageKey;
-  }
-
-  /**
-   * Save data to localStorage
-   */
-  save(k, d) {
-    try {
-      const fk = `${this.storageKey}_${k}`;
-      localStorage.setItem(fk, JSON.stringify(d));
-    } catch (error) {
-      console.error('Failed to save to localStorage:', error);
+    /**
+     * @param {string} [storageKey='todos'] - Prefix for all stored keys.
+     */
+    constructor(storageKey = 'todos') {
+        /**
+         * The namespace prefix used for all keys.
+         * @private
+         */
+        this.storageKey = storageKey;
     }
-  }
 
-  /**
-   * Load data from localStorage
-   */
-  load(key, defaultValue = null) {
-    try {
-      const fullKey = `${this.storageKey}_${key}`;
-      const item = localStorage.getItem(fullKey);
-      return item ? JSON.parse(item) : defaultValue;
-    } catch (error) {
-      console.error('Failed to load from localStorage:', error);
-      return defaultValue;
-    }
-  }
-
-  /**
-   * Remove data from localStorage
-   */
-  remove(k) {
-    try {
-      const fullK = `${this.storageKey}_${k}`;
-      localStorage.removeItem(fullK);
-    } catch (e) {
-      console.error('Failed to remove from localStorage:', e);
-    }
-  }
-
-  /**
-   * Clear all data for this app
-   */
-  clear() {
-    try {
-      const keysToRemove = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key && key.startsWith(this.storageKey)) {
-          keysToRemove.push(key);
+    /**
+     * Persists a JSON-serializable value under a logical key.
+     *
+     * @param {string} key - Logical identifier (e.g., `'items'`, `'settings'`).
+     * @param {any} data - Value to store. Must be JSON-serializable.
+     *
+     * @example
+     * storage.save('nextId', 42);
+     */
+    save(key, data) {
+        try {
+            const fullKey = `${this.storageKey}_${key}`;
+            localStorage.setItem(fullKey, JSON.stringify(data));
+        } catch (error) {
+            console.error('StorageService.save() failed:', { key, error });
         }
-      }
-      keysToRemove.forEach(key => localStorage.removeItem(key));
-    } catch (error) {
-      console.error('Failed to clear localStorage:', error);
     }
-  }
+
+    /**
+     * Retrieves and parses a value.
+     *
+     * @param {string} key - Logical key.
+     * @param {any} [defaultValue=null] - Fallback if key missing or corrupted.
+     * @returns {any} Parsed value or `defaultValue`.
+     *
+     * @example
+     * const todos = storage.load('items', []); // [] if nothing stored
+     */
+    load(key, defaultValue = null) {
+        try {
+            const fullKey = `${this.storageKey}_${key}`;
+            const item = localStorage.getItem(fullKey);
+            return item !== null ? JSON.parse(item) : defaultValue;
+        } catch (error) {
+            console.error('StorageService.load() failed:', { key, error });
+            return defaultValue;
+        }
+    }
+
+    /**
+     * Deletes a single namespaced entry.
+     *
+     * @param {string} key - Logical key to remove.
+     *
+     * @example
+     * storage.remove('items'); // deletes "todos_items"
+     */
+    remove(key) {
+        try {
+            const fullKey = `${this.storageKey}_${key}`;
+            localStorage.removeItem(fullKey);
+        } catch (error) {
+            console.error('StorageService.remove() failed:', { key, error });
+        }
+    }
+
+    /**
+     * Removes **all** keys belonging to this service.
+     *
+     * @example
+     * storage.clear(); // wipes todos_items, todos_nextId, etc.
+     */
+    clear() {
+        try {
+            const prefix = this.storageKey;
+            const keysToRemove = [];
+
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith(prefix)) {
+                    keysToRemove.push(key);
+                }
+            }
+
+            keysToRemove.forEach(k => localStorage.removeItem(k));
+        } catch (error) {
+            console.error('StorageService.clear() failed:', error);
+        }
+    }
 }

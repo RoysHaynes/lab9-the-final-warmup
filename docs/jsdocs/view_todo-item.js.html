@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>view/todo-item.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="StorageService.html">StorageService</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="StorageService.html#clear">clear</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="StorageService.html#load">load</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="StorageService.html#remove">remove</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="StorageService.html#save">save</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TodoApp.html">TodoApp</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleAddTodo">handleAddTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleClearAll">handleClearAll</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleClearCompleted">handleClearCompleted</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleDeleteTodo">handleDeleteTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleToggleTodo">handleToggleTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleUpdateTodo">handleUpdateTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TodoForm.html">TodoForm</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoForm.html#handleInput">handleInput</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoForm.html#handleSubmit">handleSubmit</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoForm.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="global.html#TodoItem">TodoItem</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleCancel">handleCancel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleDelete">handleDelete</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleEdit">handleEdit</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleKeyDown">handleKeyDown</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleSave">handleSave</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleToggle">handleToggle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TodoList.html">TodoList</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoList.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TodoModel.html">TodoModel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#addTodo">addTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#clearAll">clearAll</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#clearCompleted">clearCompleted</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#deleteTodo">deleteTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#search">search</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#subscribe">subscribe</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#toggleComplete">toggleComplete</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#updateTodo">updateTodo</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">view/todo-item.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { LitElement, html, css } from 'lit';
+
+/**
+ * `&lt;todo-item>` – Renders and manages a single todo entry.
+ *
+ * Supports:
+ * - Toggle completion
+ * - Inline editing (Enter/Esc)
+ * - Delete with confirmation
+ * - Visual feedback (hover, completed state, disabled edit when done)
+ *
+ * @fires TodoItem#toggle-todo   - When checkbox is changed
+ * @fires TodoItem#delete-todo   - When delete button is confirmed
+ * @fires TodoItem#update-todo   - When edit is saved
+ *
+ * @example
+ * &lt;todo-item .todo=${todoObj}
+ *   @toggle-todo=${e => model.toggleComplete(e.detail.id)}
+ *   @delete-todo=${e => model.deleteTodo(e.detail.id)}
+ *   @update-todo=${e => model.updateTodo(e.detail.id, e.detail.text)}>
+ * &lt;/todo-item>
+ */
+export class TodoItem extends LitElement {
+    /**
+     * Reactive properties.
+     *
+     * @type {{
+     *   todo: { type: Object },
+     *   isEditing: { state: true },
+     *   editValue: { state: true }
+     * }}
+     */
+    static properties = {
+        todo: { type: Object },
+        isEditing: { state: true },
+        editValue: { state: true }
+    };
+
+    /**
+     * Shadow DOM styles – scoped and encapsulated.
+     *
+     * @type {CSSResult}
+     */
+    static styles = css`
+        :host {
+            display: block;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .todo-item:hover {
+            transform: translateX(4px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .todo-text {
+            flex: 1;
+            font-size: 16px;
+            color: #333;
+            word-break: break-word;
+        }
+
+        .todo-text.completed {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .edit-input {
+            flex: 1;
+            padding: 8px;
+            font-size: 16px;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .edit-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background: #45a049;
+        }
+
+        .delete-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #da190b;
+        }
+
+        .save-btn {
+            background: #2196F3;
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: #0b7dda;
+        }
+
+        .cancel-btn {
+            background: #757575;
+            color: white;
+        }
+
+        .cancel-btn:hover {
+            background: #616161;
+        }
+
+        .edit-btn[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    `;
+
+    /**
+     * Initializes component state.
+     */
+    constructor() {
+        super();
+        /** @private */
+        this.isEditing = false;
+        /** @private */
+        this.editValue = '';
+    }
+
+    /* --------------------------------------------------------------------- *
+     *  Event Dispatchers
+     * --------------------------------------------------------------------- */
+
+    /**
+     * Emits `toggle-todo` event with the todo ID.
+     *
+     * @fires TodoItem#toggle-todo
+     */
+    handleToggle() {
+        this.dispatchEvent(
+            new CustomEvent('toggle-todo', {
+                detail: { id: this.todo.id },
+                bubbles: true,
+                composed: true
+            })
+        );
+    }
+
+    /**
+     * Prompts for confirmation then emits `delete-todo`.
+     *
+     * @fires TodoItem#delete-todo
+     */
+    handleDelete() {
+        if (confirm('Delete this todo?')) {
+            this.dispatchEvent(
+                new CustomEvent('delete-todo', {
+                    detail: { id: this.todo.id },
+                    bubbles: true,
+                    composed: true
+                })
+            );
+        }
+    }
+
+    /**
+     * Enters edit mode and pre-fills the current text.
+     */
+    handleEdit() {
+        this.isEditing = true;
+        this.editValue = this.todo.text;
+    }
+
+    /**
+     * Saves edited text if non-empty and exits edit mode.
+     *
+     * @fires TodoItem#update-todo
+     */
+    handleSave() {
+        const trimmed = this.editValue.trim();
+        if (trimmed) {
+            this.dispatchEvent(
+                new CustomEvent('update-todo', {
+                    detail: { id: this.todo.id, text: trimmed },
+                    bubbles: true,
+                    composed: true
+                })
+            );
+            this.isEditing = false;
+        }
+    }
+
+    /**
+     * Discards changes and exits edit mode.
+     */
+    handleCancel() {
+        this.isEditing = false;
+        this.editValue = '';
+    }
+
+    /**
+     * Handles keyboard shortcuts in edit mode.
+     *
+     * - **Enter**: Save
+     * - **Escape**: Cancel
+     *
+     * @param {KeyboardEvent} e
+     */
+    handleKeyDown(e) {
+        if (e.key === 'Enter') {
+            this.handleSave();
+        } else if (e.key === 'Escape') {
+            this.handleCancel();
+        }
+    }
+
+    /* --------------------------------------------------------------------- *
+     *  Rendering
+     * --------------------------------------------------------------------- */
+
+    /**
+     * Renders either the **view** or **edit** template based on state.
+     *
+     * @returns {TemplateResult}
+     */
+    render() {
+        if (this.isEditing) {
+            return html`
+                &lt;div class="todo-item">
+                    &lt;input
+                            class="edit-input"
+                            type="text"
+                            .value=${this.editValue}
+                            @input=${e => (this.editValue = e.target.value)}
+                            @keydown=${this.handleKeyDown}
+                            autofocus
+                    />
+                    &lt;div class="button-group">
+                        &lt;button class="save-btn" @click=${this.handleSave}>Save&lt;/button>
+                        &lt;button class="cancel-btn" @click=${this.handleCancel}>Cancel&lt;/button>
+                    &lt;/div>
+                &lt;/div>
+            `;
+        }
+
+        return html`
+            &lt;div class="todo-item">
+                &lt;input
+                        type="checkbox"
+                        class="checkbox"
+                        .checked=${this.todo.completed}
+                        @change=${this.handleToggle}
+                        aria-label="Toggle todo"
+                />
+                &lt;span class="todo-text ${this.todo.completed ? 'completed' : ''}">
+          ${this.todo.text}
+        &lt;/span>
+                &lt;div class="button-group">
+                    &lt;button
+                            class="edit-btn"
+                            @click=${this.handleEdit}
+                            ?disabled=${this.todo.completed}
+                            aria-label="Edit todo"
+                    >
+                        Edit
+                    &lt;/button>
+                    &lt;button
+                            class="delete-btn"
+                            @click=${this.handleDelete}
+                            aria-label="Delete todo"
+                    >
+                        Delete
+                    &lt;/button>
+                &lt;/div>
+            &lt;/div>
+        `;
+    }
+}
+
+customElements.define('todo-item', TodoItem);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed Nov 05 2025 10:52:47 GMT-0800 (Pacific Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
