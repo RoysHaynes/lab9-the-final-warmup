@@ -42,7 +42,6 @@ export class TodoList extends LitElement {
 
     .list-container {
       max-height: 31.25rem;
-      overflow-y: auto;
     }
 
     /* Custom scrollbar (Chrome/Edge) */
