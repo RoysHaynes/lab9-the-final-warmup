@@ -30,6 +30,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "canvas-confetti": "^1.9.4",
     "lit": "^3.1.0"
   },
   "devDependencies": {

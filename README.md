@@ -48,26 +48,7 @@ This lab demonstrates the ability to:
 
 ## 📂 Project Structure (After Refactor)
 ```plaintext
-lab9-the-final-warmup/
-├─ .github/
-│  └─ workflows/ci.yml
-├─ src/
-│  ├─ components/        # Views (Lit web components)
-│  ├─ models/            # Data logic / state
-│  ├─ services/          # Local storage, API, helpers
-│  ├─ main.js            # Entry point
-│  ├─ index.html
-│  └─ styles.css
-├─ tests/
-│  ├─ todo-model.test.js
-│  ├─ e2e/
-│  │  └─ basic-flow.spec.js
-├─ docs/
-│  ├─ ADRs/
-│  │  └─ 0001-use-lit-and-mvc.md
-│  └─ jsdocs/
-├─ package.json
-└─ README.md
+
 ```
 ## Setup
 - git clone https://github.com/RoysHaynes/lab9-the-final-warmup.git 

@@ -25,91 +25,106 @@ export class TodoApp extends LitElement {
    * CSS styles for the component.
    */
   static styles = css`
-      :host { display: block; }
+    :host {
+      display: block;
+    }
 
-      .app-container {
-          background: white;
-          border-radius: 1rem;                    
-          box-shadow: 0 0.625rem 2.5rem rgba(0,0,0,.2); 
-          padding: 2rem;                         
-          min-height: 25rem;                       
-      }
+    .app-container {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 0.625rem 2.5rem rgba(0, 0, 0, 0.2);
+      padding: 2rem;
+      min-height: 25rem;
+    }
 
-      h1 {
-          margin: 0 0 0.5rem;                      
-          color: #333;
-          font-size: 2rem;                         
-          font-weight: 700;
-      }
+    h1 {
+      margin: 0 0 0.5rem;
+      color: #333;
+      font-size: 2rem;
+      font-weight: 700;
+    }
 
-      .subtitle {
-          color: #666;
-          margin-bottom: 1.5rem;                  
-          font-size: 0.875rem;                     
-      }
+    .subtitle {
+      color: #666;
+      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
+    }
 
-      .stats {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 1rem;                      
-          background: #f5f5f5;
-          border-radius: 0.5rem;                   
-          margin-bottom: 1.25rem;                  
-      }
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: #f5f5f5;
+      border-radius: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
 
-      .stat-item {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-      }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-      .stat-value {
-          font-size: 1.5rem;                    
-          font-weight: 700;
-          color: #667eea;
-      }
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #667eea;
+    }
 
-      .stat-label {
-          font-size: 0.75rem;                      
-          color: #666;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;                  
-      }
+    .stat-label {
+      font-size: 0.75rem;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
 
-      .actions {
-          display: flex;
-          gap: 0.5rem;                        
-          margin-top: 1.25rem;                    
-      }
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
 
-      button {
-          flex: 1;
-          padding: 0.625rem 1rem;                
-          border: none;
-          border-radius: 0.5rem;                  
-          font-size: 0.875rem;                     
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.2s;
-      }
+    button {
+      flex: 1;
+      padding: 0.625rem 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
 
-      .clear-completed { background:#ff9800; color:white; }
-      .clear-completed:hover { background:#f57c00; }
+    .clear-completed {
+      background: #ff9800;
+      color: white;
+    }
+    .clear-completed:hover {
+      background: #f57c00;
+    }
 
-      .clear-all { background:#f44336; color:white; }
-      .clear-all:hover { background:#da190b; }
+    .clear-all {
+      background: #f44336;
+      color: white;
+    }
+    .clear-all:hover {
+      background: #da190b;
+    }
 
-      button:disabled { opacity:.5; cursor:not-allowed; }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
 
-      .footer {
-          margin-top: 1.25rem;                     
-          padding-top: 1.25rem;                    
-          border-top: 1px solid;
-          text-align: center;
-          color: #666;
-          font-size: 0.75rem;                      
-      }
+    .footer {
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid;
+      text-align: center;
+      color: #666;
+      font-size: 0.75rem;
+    }
   `;
 
   /**

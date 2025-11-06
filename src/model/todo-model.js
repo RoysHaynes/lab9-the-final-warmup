@@ -68,6 +68,26 @@ export class TodoModel {
     this.save();
     this.notify();
   }
+  /**
+   *
+   * @param fromIndex
+   * @param toIndex
+   */
+  reorder(fromIndex, toIndex) {
+    const [moved] = this.todos.splice(fromIndex, 1);
+    this.todos.splice(toIndex, 0, moved);
+    this.reindex(); // keep order numbers in sync
+    this.save();
+    this.notify();
+  }
+
+  /* helper – keep order field consistent */
+  /**
+   *
+   */
+  reindex() {
+    this.todos.forEach((t, i) => (t.order = i));
+  }
 
   /**
    * Toggles the completion state of a todo item by ID.
