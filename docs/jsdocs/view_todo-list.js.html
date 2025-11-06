@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>view/todo-list.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="StorageService.html">StorageService</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="StorageService.html#clear">clear</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="StorageService.html#load">load</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="StorageService.html#remove">remove</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="StorageService.html#save">save</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TodoApp.html">TodoApp</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleAddTodo">handleAddTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleClearAll">handleClearAll</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleClearCompleted">handleClearCompleted</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleDeleteTodo">handleDeleteTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleToggleTodo">handleToggleTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleUpdateTodo">handleUpdateTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TodoForm.html">TodoForm</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoForm.html#handleInput">handleInput</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoForm.html#handleSubmit">handleSubmit</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoForm.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="global.html#TodoItem">TodoItem</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleCancel">handleCancel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleDelete">handleDelete</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleEdit">handleEdit</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleKeyDown">handleKeyDown</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleSave">handleSave</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleToggle">handleToggle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TodoList.html">TodoList</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoList.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TodoModel.html">TodoModel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#addTodo">addTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#clearAll">clearAll</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#clearCompleted">clearCompleted</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#deleteTodo">deleteTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#search">search</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#subscribe">subscribe</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#toggleComplete">toggleComplete</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#updateTodo">updateTodo</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">view/todo-list.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { LitElement, html, css } from 'lit';
+import './todo-item.js';
+/**
+ * `&lt;todo-list>` – Renders a scrollable list of todo items.
+ *
+ * Displays:
+ * - An **empty state** when no todos exist
+ * - A **virtualized-style list** using native `&lt;todo-item>` components
+ * - **Custom scrollbar** styling for WebKit browsers
+ *
+ * The component is **purely presentational** – it receives `todos` as a property
+ * and forwards all user interactions (toggle, edit, delete) via event bubbling.
+ *
+ * @prop {Array&lt;TodoItem>} todos - Array of todo objects to display.
+ *
+ * @fires TodoItem#toggle-todo   - Bubbled from child `&lt;todo-item>`
+ * @fires TodoItem#delete-todo   - Bubbled from child
+ * @fires TodoItem#update-todo   - Bubbled from child
+ *
+ * @example
+ * &lt;todo-list
+ *   .todos=${model.todos}
+ *   @toggle-todo=${e => model.toggleComplete(e.detail.id)}
+ *   @delete-todo=${e => model.deleteTodo(e.detail.id)}
+ *   @update-todo=${e => model.updateTodo(e.detail.id, e.detail.text)}>
+ * &lt;/todo-list>
+ */
+export class TodoList extends LitElement {
+    /**
+     * Reactive property: the array of todos to render.
+     *
+     * @type {Array&lt;TodoItem>}
+     */
+    static properties = {
+        todos: { type: Array }
+    };
+
+    /**
+     * Shadow DOM styles – encapsulated and performance-optimized.
+     *
+     * Includes:
+     * - Scroll container with max height
+     * - Custom scrollbar (WebKit only)
+     * - Empty state styling
+     *
+     * @type {CSSResult}
+     */
+    static styles = css`
+        :host {
+            display: block;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            font-size: 18px;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .list-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        /* Custom scrollbar – WebKit only */
+        .list-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .list-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .list-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        .list-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+    `;
+
+    /**
+     * Initializes with an empty todo array.
+     */
+    constructor() {
+        super();
+        /** @private */
+        this.todos = [];
+    }
+
+    /**
+     * Renders the list or empty state.
+     *
+     * Uses `Array.map` to generate `&lt;todo-item>` elements.
+     * Events from children bubble up automatically due to `composed: true`.
+     *
+     * @returns {TemplateResult}
+     */
+    render() {
+        if (this.todos.length === 0) {
+            return html`
+                &lt;div class="empty-state">
+                    &lt;div class="empty-icon">pencil&lt;/div>
+                    &lt;p>No todos yet. Add one above!&lt;/p>
+                &lt;/div>
+            `;
+        }
+
+        return html`
+            &lt;div class="list-container">
+                ${this.todos.map(
+                        todo => html`&lt;todo-item .todo=${todo}>&lt;/todo-item>`
+                )}
+            &lt;/div>
+        `;
+    }
+}
+
+customElements.define('todo-list', TodoList);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed Nov 05 2025 10:52:47 GMT-0800 (Pacific Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

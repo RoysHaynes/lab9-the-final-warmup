@@ -2,7 +2,7 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
     root:'./src',
-    base: '/lab9-the-final-warmup/',
+    base: '/',
     build: {
         outDir: '../dist',
         emptyOutDir: true,

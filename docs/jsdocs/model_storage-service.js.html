@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>model/storage-service.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="StorageService.html">StorageService</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="StorageService.html#clear">clear</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="StorageService.html#load">load</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="StorageService.html#remove">remove</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="StorageService.html#save">save</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TodoApp.html">TodoApp</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleAddTodo">handleAddTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleClearAll">handleClearAll</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleClearCompleted">handleClearCompleted</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleDeleteTodo">handleDeleteTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleToggleTodo">handleToggleTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#handleUpdateTodo">handleUpdateTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoApp.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TodoForm.html">TodoForm</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoForm.html#handleInput">handleInput</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoForm.html#handleSubmit">handleSubmit</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoForm.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="global.html#TodoItem">TodoItem</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleCancel">handleCancel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleDelete">handleDelete</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleEdit">handleEdit</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleKeyDown">handleKeyDown</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleSave">handleSave</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#handleToggle">handleToggle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#TodoItem#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TodoList.html">TodoList</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoList.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TodoModel.html">TodoModel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#addTodo">addTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#clearAll">clearAll</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#clearCompleted">clearCompleted</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#deleteTodo">deleteTodo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#search">search</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#subscribe">subscribe</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#toggleComplete">toggleComplete</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="TodoModel.html#updateTodo">updateTodo</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">model/storage-service.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * StorageService – a **namespaced wrapper** around `localStorage`.
+ *
+ * All keys are prefixed with `storageKey_` to avoid collisions with other apps.
+ * Errors are caught and logged; methods never throw.
+ *
+ * @example
+ * // Default usage (prefix: "todos")
+ * const storage = new StorageService();
+ * storage.save('items', [{ id: 1, text: 'Buy milk' }]);
+ * const todos = storage.load('items', []); // → array or default
+ *
+ * @example
+ * // Custom namespace
+ * const userStorage = new StorageService('myapp_user');
+ * userStorage.save('profile', { name: 'Roy' });
+ */
+export class StorageService {
+    /**
+     * @param {string} [storageKey='todos'] - Prefix for all stored keys.
+     */
+    constructor(storageKey = 'todos') {
+        /**
+         * The namespace prefix used for all keys.
+         * @private
+         */
+        this.storageKey = storageKey;
+    }
+
+    /**
+     * Persists a JSON-serializable value under a logical key.
+     *
+     * @param {string} key - Logical identifier (e.g., `'items'`, `'settings'`).
+     * @param {any} data - Value to store. Must be JSON-serializable.
+     *
+     * @example
+     * storage.save('nextId', 42);
+     */
+    save(key, data) {
+        try {
+            const fullKey = `${this.storageKey}_${key}`;
+            localStorage.setItem(fullKey, JSON.stringify(data));
+        } catch (error) {
+            console.error('StorageService.save() failed:', { key, error });
+        }
+    }
+
+    /**
+     * Retrieves and parses a value.
+     *
+     * @param {string} key - Logical key.
+     * @param {any} [defaultValue=null] - Fallback if key missing or corrupted.
+     * @returns {any} Parsed value or `defaultValue`.
+     *
+     * @example
+     * const todos = storage.load('items', []); // [] if nothing stored
+     */
+    load(key, defaultValue = null) {
+        try {
+            const fullKey = `${this.storageKey}_${key}`;
+            const item = localStorage.getItem(fullKey);
+            return item !== null ? JSON.parse(item) : defaultValue;
+        } catch (error) {
+            console.error('StorageService.load() failed:', { key, error });
+            return defaultValue;
+        }
+    }
+
+    /**
+     * Deletes a single namespaced entry.
+     *
+     * @param {string} key - Logical key to remove.
+     *
+     * @example
+     * storage.remove('items'); // deletes "todos_items"
+     */
+    remove(key) {
+        try {
+            const fullKey = `${this.storageKey}_${key}`;
+            localStorage.removeItem(fullKey);
+        } catch (error) {
+            console.error('StorageService.remove() failed:', { key, error });
+        }
+    }
+
+    /**
+     * Removes **all** keys belonging to this service.
+     *
+     * @example
+     * storage.clear(); // wipes todos_items, todos_nextId, etc.
+     */
+    clear() {
+        try {
+            const prefix = this.storageKey;
+            const keysToRemove = [];
+
+            for (let i = 0; i &lt; localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key &amp;&amp; key.startsWith(prefix)) {
+                    keysToRemove.push(key);
+                }
+            }
+
+            keysToRemove.forEach(k => localStorage.removeItem(k));
+        } catch (error) {
+            console.error('StorageService.clear() failed:', error);
+        }
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed Nov 05 2025 10:52:47 GMT-0800 (Pacific Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

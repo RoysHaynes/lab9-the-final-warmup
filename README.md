@@ -1,8 +1,8 @@
 # 🧠 Lab 9 – The Final Warm-Up
 ### Course: COMP 305 / Human-Centered Software Engineering
 **Author:** Roy Haynes  
-**Repository:** https://github.com/RoysHaynes/lab9-the-final-warmup.git
-**live demo:** 
+**Repository:** https://github.com/RoysHaynes/lab9-the-final-warmup.git        
+**Live demo:** https://lustrous-croissant-5dd84d.netlify.app 
 ---
 
 ## 🎯 Overview
