@@ -1,13 +1,22 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  root: 'src',
-  build: {
-    outDir: '../dist',
-    emptyOutDir: true
-  },
-  server: {
-    port: 8080,
-    open: true
-  }
+    root:'./src',
+    test: {
+        globals:true,
+        environment: 'jsdom',
+        coverage: {
+            provider: 'v8',
+            reporter: ['text', 'html'],
+            exclude: ['node_modules/', 'tests/e2e/']
+        },
+        exclude: [
+            'node_modules',
+            'dist',
+            'e2e',
+            '**/*.e2e.*',
+            '**/playwright.config.*',
+            '**/tests/e2e/**'
+        ]
+    }
 });

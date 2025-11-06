@@ -27,54 +27,54 @@ export class TodoForm extends LitElement {
    * CSS styles for the component.
    */
   static styles = css`
-    :host {
-      display: block;
-      margin-bottom: 20px;
-    }
+      :host {
+          display: block;
+          margin-bottom: 1.25rem;         
+      }
 
-    form {
-      display: flex;
-      gap: 8px;
-    }
+      form {
+          display: flex;
+          gap: 0.5rem;                   
+      }
 
-    input {
-      flex: 1;
-      padding: 12px 16px;
-      font-size: 16px;
-      border: 2px solid #e0e0e0;
-      border-radius: 8px;
-      outline: none;
-      transition: border-color 0.3s;
-    }
+      input {
+          flex: 1;
+          padding: 0.75rem 1rem;          
+          font-size: 1rem;              
+          border: 0.125rem solid #e0e0e0;  
+          border-radius: 0.5rem;          
+          outline: none;
+          transition: border-color 0.3s;
+      }
 
-    input:focus {
-      border-color: #667eea;
-    }
+      input:focus {
+          border-color: #667eea;
+      }
 
-    button {
-      padding: 12px 24px;
-      background: #667eea;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
+      button {
+          padding: 0.75rem 1.5rem;         
+          background: #667eea;
+          color: white;
+          border: none;
+          border-radius: 0.5rem;          
+          font-size: 1rem;                
+          font-weight: 600;
+          cursor: pointer;
+          transition: background 0.3s;
+      }
 
-    button:hover {
-      background: #5568d3;
-    }
+      button:hover {
+          background: #5568d3;
+      }
 
-    button:active {
-      transform: translateY(1px);
-    }
+      button:active {
+          transform: translateY(0.0625rem);
+      }
 
-    button:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
+      button:disabled {
+          background: #ccc;
+          cursor: not-allowed;
+      }
   `;
 
   /**

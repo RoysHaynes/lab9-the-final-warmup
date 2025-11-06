@@ -16,7 +16,10 @@
     "docs:watch": "chokidar 'src/**/*.js' -c 'npm run docs'",
     "lint:jsdoc": "eslint src --ext .js --fix",
     "format": "prettier --write \"src/**/*.{js,html,css}\"",
-    "format:check": "prettier --check \"src/**/*.{js,html,css}\""
+    "format:check": "prettier --check \"src/**/*.{js,html,css}\"",
+    "test:unit": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:report": "playwright show-report"
   },
   "keywords": [
     "lit",
@@ -30,6 +33,7 @@
     "lit": "^3.1.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.56.1",
     "@vitest/coverage-v8": "^4.0.7",
     "eslint": "^8.55.0",
     "eslint-config-prettier": "^10.1.8",

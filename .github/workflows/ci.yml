@@ -23,18 +23,31 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # --- LINT & FORMAT ---
       - name: Run linter (ESLint + JSDoc)
         run: npm run lint
 
       - name: Format check (Prettier)
         run: npm run format:check
 
+      # --- UNIT TESTS ---
       - name: Run unit tests
         run: npm test
+
+      # --- E2E TESTS ---
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Start Vite dev server
+        run: npm run dev &
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:5173
 
       - name: Run E2E tests
         run: npx playwright test
 
+      # --- DOCS ---
       - name: Generate JSDoc
         run: npm run docs
 
@@ -70,4 +83,4 @@ jobs:
             exit 1
           fi
           echo "Build successful - dist directory created"
-          ls -R dist  # Optional: list contents for debug
+          ls -R dist

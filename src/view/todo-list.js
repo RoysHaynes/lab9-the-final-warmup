@@ -24,41 +24,45 @@ export class TodoList extends LitElement {
    * @type {CSSResult}
    */
   static styles = css`
-    :host {
-      display: block;
-    }
+      :host {
+          display: block;
+      }
 
-    .empty-state {
-      text-align: center;
-      padding: 40px 20px;
-      color: white;
-      font-size: 18px;
-    }
-    .empty-icon {
-      font-size: 48px;
-      margin-bottom: 16px;
-    }
+      .empty-state {
+          text-align: center;
+          padding: 2.5rem 1.25rem;        
+          color: white;
+          font-size: 1.125rem;            
+      }
 
-    .list-container {
-      max-height: 500px;
-      overflow-y: auto;
-    }
+      .empty-icon {
+          font-size: 3rem;               
+          margin-bottom: 1rem;                 
+      }
 
-    /* Custom scrollbar (Chrome/Edge) */
-    .list-container::-webkit-scrollbar {
-      width: 8px;
-    }
-    .list-container::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
-    }
-    .list-container::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 4px;
-    }
-    .list-container::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.5);
-    }
+      .list-container {
+          max-height: 31.25rem;           
+          overflow-y: auto;
+      }
+
+      /* Custom scrollbar (Chrome/Edge) */
+      .list-container::-webkit-scrollbar {
+          width: 0.5rem;                 
+      }
+
+      .list-container::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 0.25rem;        
+      }
+
+      .list-container::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.3);
+          border-radius: 0.25rem;         
+      }
+
+      .list-container::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.5);
+      }
   `;
 
   /**

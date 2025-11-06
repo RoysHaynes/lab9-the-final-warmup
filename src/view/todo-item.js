@@ -24,99 +24,80 @@ export class TodoItem extends LitElement {
    * @type {CSSResult}
    */
   static styles = css`
-    :host {
-      display: block;
-    }
+      :host {
+          display: block;
+      }
 
-    .todo-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px;
-      background: white;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      transition:
-        transform 0.2s,
-        box-shadow 0.2s;
-    }
+      .todo-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;                    
+          padding: 1rem;                   
+          background: white;
+          border-radius: 0.5rem;          
+          margin-bottom: 0.5rem;          
+          transition: transform 0.2s, box-shadow 0.2s;
+      }
 
-    .todo-item:hover {
-      transform: translateX(4px);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
+      .todo-item:hover {
+          transform: translateX(0.25rem); 
+          box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,.1); 
+      }
 
-    .checkbox {
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-    }
-    .todo-text {
-      flex: 1;
-      font-size: 16px;
-      color: #333;
-      word-break: break-word;
-    }
-    .todo-text.completed {
-      text-decoration: line-through;
-      color: #999;
-    }
+      .checkbox {
+          width: 1.25rem;                  
+          height: 1.25rem;                
+          cursor: pointer;
+      }
 
-    .edit-input {
-      flex: 1;
-      padding: 8px;
-      font-size: 16px;
-      border: 2px solid #667eea;
-      border-radius: 4px;
-      outline: none;
-    }
+      .todo-text {
+          flex: 1;
+          font-size: 1rem;               
+          color: #333;
+          word-break: break-word;
+      }
 
-    .button-group {
-      display: flex;
-      gap: 8px;
-    }
-    button {
-      padding: 6px 12px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background 0.2s;
-    }
+      .todo-text.completed {
+          text-decoration: line-through;
+          color: #999;
+      }
 
-    .edit-btn {
-      background: #4caf50;
-      color: white;
-    }
-    .edit-btn:hover {
-      background: #45a049;
-    }
-    .delete-btn {
-      background: #f44336;
-      color: white;
-    }
-    .delete-btn:hover {
-      background: #da190b;
-    }
-    .save-btn {
-      background: #2196f3;
-      color: white;
-    }
-    .save-btn:hover {
-      background: #0b7dda;
-    }
-    .cancel-btn {
-      background: #757575;
-      color: white;
-    }
-    .cancel-btn:hover {
-      background: #616161;
-    }
+      .edit-input {
+          flex: 1;
+          padding: 0.5rem;                 
+          font-size: 1rem;                
+          border: 0.125rem solid #667eea;  
+          border-radius: 0.25rem;        
+          outline: none;
+      }
 
-    .edit-btn[disabled] {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+      .button-group {
+          display: flex;
+          gap: 0.5rem;                    
+      }
+
+      button {
+          padding: 0.375rem 0.75rem;      
+          border: none;
+          border-radius: 0.25rem;         
+          cursor: pointer;
+          font-size: 0.875rem;             
+          transition: background 0.2s;
+      }
+
+      .edit-btn   { background:#4caf50; color:white; }
+      .edit-btn:hover   { background:#45a049; }
+      .delete-btn { background:#f44336; color:white; }
+      .delete-btn:hover { background:#da190b; }
+      .save-btn   { background:#2196f3; color:white; }
+      .save-btn:hover   { background:#0b7dda; }
+      .cancel-btn { background:#757575; color:white; }
+      .cancel-btn:hover { background:#616161; }
+
+      .edit-btn[disabled] {
+          opacity: 0.5;
+          cursor: not-allowed;
+      }
   `;
   /**
    * constructor
@@ -130,7 +111,7 @@ export class TodoItem extends LitElement {
   // --- Event dispatchers ---
 
   /**
-   *
+   * handles toggle
    */
   handleToggle() {
     this.dispatchEvent(
