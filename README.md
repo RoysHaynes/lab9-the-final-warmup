@@ -1,8 +1,8 @@
 # 🧠 Lab 9 – The Final Warm-Up
 ### Course: COMP 305 / Human-Centered Software Engineering
 **Author:** Roy Haynes  
-**Repository:** [lab9-the-final-warmup](https://github.com/RoysHaynes/lab9-the-final-warmup)
-
+**Repository:** https://github.com/RoysHaynes/lab9-the-final-warmup.git
+**live demo:** 
 ---
 
 ## 🎯 Overview
@@ -48,6 +48,44 @@ This lab demonstrates the ability to:
 
 ## 📂 Project Structure (After Refactor)
 ```plaintext
+ab9-the-final-warmup/
+├── .github/
+│   └── workflows/
+│       └── ci.yml               # CI/CD: lint, test, docs, deploy
+├── docs/
+│   ├── ADRs/                    # Architectural Decisions
+│   │   └── 0001-use-lit-and-mvc.md
+│   └── jsdocs/                  # Generated API docs (npm run docs)
+├── src/                         # Source code (Vite root)
+│   ├── controller/
+│   │   └── todo-app.js          # Root component (MVC Controller)
+│   ├── model/
+│   │   ├── storage-service.js   # LocalStorage wrapper
+│   │   └── todo-model.js        # Business logic + Observer pattern
+│   ├── view/
+│   │   ├── todo-form.js         # Add new todos
+│   │   ├── todo-item.js         # Single todo (with confetti flair!)
+│   │   └── todo-list.js         # List rendering + empty state
+│   ├── index.html               # Entry point
+│   └── styles.css               # Global styles (responsive rem units)
+├── tests/
+│   ├── unit/                    # Vitest unit tests (7 files, 95%+ coverage)
+│   │   ├── add.test.js
+│   │   ├── toggle.test.js
+│   │   ├── delete.test.js
+│   │   ├── update.test.js
+│   │   ├── clear.test.js
+│   │   ├── stats.test.js
+│   │   └── search.test.js
+│   └── e2e/                     # Playwright E2E (full user flow)
+│       └── app.spec.js
+├── .eslintrc.json               # ESLint + JSDoc + Lit rules
+├── .prettierrc                  # Formatting rules
+├── jsdoc.conf.json              # JSDoc generation
+├── playwright.config.js         # E2E test config
+├── vite.config.js               # Vite build/dev server
+├── package.json                 # Dependencies + scripts
+└── README.md                    # This file
 
 ```
 ## Setup
@@ -60,6 +98,13 @@ This lab demonstrates the ability to:
 - npm test
 - npx playwright test
 
+## Scripts 
+- npm run dev
+- npm test
+- npm run e2e
+- npm run lint
+- npm run format
+- npm run docs
 
 ## License
 This project is licensed under the MIT License.
