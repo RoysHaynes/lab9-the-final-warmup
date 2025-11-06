@@ -2,6 +2,12 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
     root:'./src',
+    base: '/lab9-the-final-warmup/',
+    build: {
+        outDir: '../dist',
+        emptyOutDir: true,
+        sourcemap: true,
+    },
     test: {
         globals:true,
         environment: 'jsdom',

@@ -19,8 +19,8 @@
     "format:check": "prettier --check \"src/**/*.{js,html,css}\"",
     "test:unit": "vitest",
     "test:e2e": "playwright test",
-    "test:e2e:report": "playwright show-report"
-
+    "test:e2e:report": "playwright show-report",
+    "deploy": "npm run build && npx wait-on dist && gh-pages -d dist"
   },
   "keywords": [
     "lit",
@@ -42,11 +42,13 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsdoc": "^61.1.12",
     "eslint-plugin-lit": "^2.1.1",
+    "gh-pages": "^6.3.0",
     "jsdoc": "^4.0.5",
     "minami": "^1.2.3",
     "prettier": "^3.6.2",
     "taffydb": "^2.7.3",
     "vite": "^5.0.0",
-    "vitest": "^4.0.7"
+    "vitest": "^4.0.7",
+    "wait-on": "^9.0.1"
   }
 }
